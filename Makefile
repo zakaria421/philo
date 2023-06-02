@@ -4,6 +4,8 @@ RM = rm -f
 SRC = philo.c\
 	  help1.c\
 	  help2.c\
+	  help3.c\
+	  help4.c\
 
 
 OBJECT = ${SRC:.c=.o}

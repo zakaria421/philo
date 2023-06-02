@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:33:58 by zbentale          #+#    #+#             */
-/*   Updated: 2023/05/23 14:56:49 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:03:29 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,15 @@ int	ft_isnumber(char *str)
 
 void	time_to_sleep(t_philo *structphilo)
 {
-	//printf("%li philo %d is sleeping\n", get_time(structphilo->start_time),structphilo->id);
-	printstr("is sleeping",structphilo);
+	printstr("is sleeping", structphilo);
 	usleepme(structphilo->constphilo->time_to_sleep);
-	printstr("is thinking",structphilo);
-	// usleep(structphilo->constphilo->time_to_sleep * 1000);
+	printstr("is thinking", structphilo);
 }
 
-void printstr(char *str,t_philo *structphilo)
+void	printstr(char *str, t_philo *structphilo)
 {
 	pthread_mutex_lock(structphilo->print);
-	printf("%li philo %d %s\n", get_time(structphilo->start_time),structphilo->id,str);
+	printf("%li philo %d %s\n", get_time(structphilo->start_time),
+		structphilo->id, str);
 	pthread_mutex_unlock(structphilo->print);
 }

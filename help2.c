@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:37:38 by zbentale          #+#    #+#             */
-/*   Updated: 2023/05/23 21:55:32 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:23:58 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	init_const(t_const *constphilo, int argc, char **argv)
 		constphilo->times_to_each_phile_eat = -1;
 }
 
-void usleepme(int time)
+void	usleepme(int time)
 {
-	struct timeval start_time;
+	struct timeval	start_time;
 
 	gettimeofday(&start_time, NULL);
 	while (get_time(start_time) < time)
@@ -41,32 +41,36 @@ void usleepme(int time)
 
 int	eat(t_philo *structphilo)
 {
-	printstr("is eating",structphilo);
-	structphilo->last_eaten = get_timeDeath();
-	structphilo->times_eaten++;	
+	printstr("is eating", structphilo);
+	structphilo->last_eaten = get_timedeath();
+	structphilo->times_eaten++;
 	usleepme(structphilo->constphilo->time_to_eat);
-	if(structphilo->times_eaten == structphilo->constphilo->times_to_each_phile_eat)
-		return 1;
-	return 0;
+	if (structphilo->times_eaten
+		== structphilo->constphilo->times_to_each_phile_eat)
+		return (1);
+	return (0);
 }
 
-int philodeath(t_philo *structphilo)
+int	philodeath(t_philo *structphilo)
 {
-	long timeOfDie = 0;
-	int i = 0;
-	while(i < structphilo->constphilo->num_philo)
+	long	time_of_die;
+	int		i;
+
+	time_of_die = 0;
+	i = 0;
+	while (i < structphilo->constphilo->num_philo)
 	{
-		timeOfDie = get_timeDeath();
-		if(timeOfDie - structphilo[i].last_eaten > structphilo->constphilo->time_to_die)
+		time_of_die = get_timedeath();
+		if (time_of_die
+			- structphilo[i].last_eaten > structphilo->constphilo->time_to_die)
 		{
 			structphilo->constphilo->death = 0;
 			pthread_mutex_lock(structphilo->print);
-			// printf("%li philo %d %s\n", get_time(structphilo->start_time),structphilo->id,str);
-			printf("%li philo %d died\n", get_time(structphilo->start_time),structphilo[i].id);
-			//printstr("died",structphilo);
-			return 1;
+			printf("%li philo %d died\n", get_time(structphilo->start_time),
+				structphilo[i].id);
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
