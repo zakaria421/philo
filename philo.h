@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:31:17 by zbentale          #+#    #+#             */
-/*   Updated: 2023/05/28 18:59:35 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:55:49 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct t_const
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				times_to_each_phile_eat;
-	int				death;
 }					t_const;
 
 typedef struct t_philo
@@ -40,11 +39,13 @@ typedef struct t_philo
 	struct timeval	start_time;
 	long			last_eaten;
 	pthread_mutex_t	*print;
+	pthread_mutex_t	*test;
 }					t_philo;
 
 typedef struct t_all
 {
 	pthread_mutex_t	*print;
+	pthread_mutex_t	*test;
 	pthread_mutex_t	*fork;
 	t_const			*constphilo;
 	struct timeval	start_time;

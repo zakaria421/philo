@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:18:31 by zbentale          #+#    #+#             */
-/*   Updated: 2023/06/01 17:21:06 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:27:43 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	*philofun(void *arg)
 	structphilo = (t_philo *)arg;
 	if (structphilo->id % 2 == 0)
 		usleep(100);
-	while (structphilo->constphilo->death)
+	while (1)
 	{
 		pthread_mutex_lock(&structphilo->fork[(structphilo->id - 1)]);
 		printstr("has taken a fork", structphilo);

@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:37:38 by zbentale          #+#    #+#             */
-/*   Updated: 2023/06/02 01:23:58 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:28:46 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	usleepme(int time)
 int	eat(t_philo *structphilo)
 {
 	printstr("is eating", structphilo);
+	pthread_mutex_lock(structphilo->test);
 	structphilo->last_eaten = get_timedeath();
 	structphilo->times_eaten++;
+	pthread_mutex_unlock(structphilo->test);
 	usleepme(structphilo->constphilo->time_to_eat);
 	if (structphilo->times_eaten
 		== structphilo->constphilo->times_to_each_phile_eat)
@@ -60,11 +62,12 @@ int	philodeath(t_philo *structphilo)
 	i = 0;
 	while (i < structphilo->constphilo->num_philo)
 	{
+		pthread_mutex_lock(structphilo->test);
 		time_of_die = get_timedeath();
-		if (time_of_die
-			- structphilo[i].last_eaten > structphilo->constphilo->time_to_die)
+		time_of_die = time_of_die - structphilo[i].last_eaten;
+		pthread_mutex_unlock(structphilo->test);
+		if (time_of_die > structphilo->constphilo->time_to_die)
 		{
-			structphilo->constphilo->death = 0;
 			pthread_mutex_lock(structphilo->print);
 			printf("%li philo %d died\n", get_time(structphilo->start_time),
 				structphilo[i].id);

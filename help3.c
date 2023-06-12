@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 14:58:33 by zbentale          #+#    #+#             */
-/*   Updated: 2023/06/01 17:34:32 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:52:29 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	initialize(t_all *all, t_philo *structphilo)
 		structphilo[i].times_eaten = 0;
 		structphilo[i].last_eaten = get_timedeath();
 		structphilo[i].print = all->print;
+		structphilo[i].test = all->test;
 		i++;
 	}
-	structphilo->constphilo->death = 1;
 }
 
 void	create_threads(t_all *all, t_philo *structphilo, pthread_t *philo)
@@ -63,6 +63,7 @@ void	create_forks(t_all *all)
 
 	i = 0;
 	pthread_mutex_init(all->print, NULL);
+	pthread_mutex_init(all->test, NULL);
 	while (i < all->constphilo->num_philo)
 	{
 		pthread_mutex_init(&all->fork[i], NULL);

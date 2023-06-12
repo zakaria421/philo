@@ -6,7 +6,7 @@
 /*   By: zbentale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:34:02 by zbentale          #+#    #+#             */
-/*   Updated: 2023/06/01 17:21:16 by zbentale         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:49:08 by zbentale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ int	ft_alleaten(t_philo *structphilo)
 	i = 0;
 	while (i < structphilo->constphilo->num_philo)
 	{
+		pthread_mutex_lock(structphilo->test);
 		if (structphilo[i].times_eaten
 			< structphilo->constphilo->times_to_each_phile_eat)
+		{
+			pthread_mutex_unlock(structphilo->test);
 			return (0);
+		}
+		pthread_mutex_unlock(structphilo->test);
 		i++;
 	}
 	return (1);
@@ -66,6 +71,7 @@ int	main(int argc, char **argv)
 	all->fork = malloc(sizeof(pthread_mutex_t) * all->constphilo->num_philo);
 	structphilo = malloc(sizeof(t_philo) * all->constphilo->num_philo);
 	all->print = malloc(sizeof(pthread_mutex_t));
+	all->test = malloc(sizeof(pthread_mutex_t));
 	create_forks(all);
 	initialize(all, structphilo);
 	create_threads(all, structphilo, philo);

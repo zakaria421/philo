@@ -1,5 +1,5 @@
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
 RM = rm -f
 SRC = philo.c\
 	  help1.c\
@@ -11,7 +11,7 @@ SRC = philo.c\
 OBJECT = ${SRC:.c=.o}
 all: $(NAME)
 $(NAME) : $(OBJECT)
-		cc   $(OBJECT) -o $(NAME) 
+		cc  $(CFLAGS) $(OBJECT) -o $(NAME) 
 
 clean:
 	$(RM) $(OBJECT)
